@@ -1,11 +1,20 @@
 import React,{useState} from "react"
 import Item from "./components/Item";
+import ProductModal from "./components/ProductModal";
 
 function App() {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
 
+  const openModal = () => {
+      setModalIsOpen(true);
+  }
+  const closeModal = () => {
+      setModalIsOpen(false);
+  }
 const onItemSelected = (item)=>{
   setSelectedItem(item)
+  openModal();
 }
   const items = [
     { id: 1, title: 'mazda', price: 3000, imagePath: "car1.jpeg",imagePath2:"car5.jpeg",description:"Cars have controls for driving, parking, passenger comfort, and a variety of lights. Over the decades, additional features and controls have been added to vehicles, making them progressively more complex." },
@@ -27,6 +36,11 @@ const onItemSelected = (item)=>{
     <div>
       <h2 style={{ textAlign: "center" }}> car shopping list</h2>
       {renderItems()}
+      <ProductModal
+        isOpen={modalIsOpen}
+        closeModal={closeModal}
+        item={selectedItem}
+      />
     </div>
   );
 }
